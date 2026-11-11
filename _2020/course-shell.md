@@ -181,14 +181,16 @@ mkdir my\ photos
 missing:~$ man ls
 ```
 
+`Ctrl+L`可以清除终端回到顶部
+
 ## 在程序间创建连接
 
-在 shell 中，程序有两个主要的“流”：它们的输入流和输出流。
+在 shell 中，程序有两个主要的“流”：它们的输入流（input stream )和输出流（ouput stream )。
 当程序尝试读取信息时，它们会从输入流中进行读取，当程序打印信息时，它们会将信息输出到输出流中。
 通常，一个程序的输入输出流都是您的终端。也就是，您的键盘作为输入，显示器作为输出。
 但是，我们也可以重定向这些流！
 
-最简单的重定向是 `< file` 和 `> file`。这两个命令可以将程序的输入输出流分别重定向到文件：
+最简单的重定向是 `< file` 和 `> file`。这两个命令可以将程序的输入输出流分别重定向到文件。`cat`是一个打印文件内容的命令：
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -202,11 +204,17 @@ hello
 ```
 
 您还可以使用 `>>` 来向一个文件追加内容。使用管道（ _pipes_ ），我们能够更好的利用文件重定向。
-`|` 操作符允许我们将一个程序的输出和另外一个程序的输入连接起来： 
+`|` 操作符允许我们将一个程序的输出和另外一个程序的输入连接起来。`tail`可以打印输入的最后n行，使用`-nl`或`--line=1`参数： 
 
 ```console
 missing:~$ ls -l / | tail -n1
 drwxr-xr-x 1 root  root  4096 Jun 20  2019 var
+missing:~$ ls -l / | tail -n1 > ls.txt
+missing:~$ cat ls.txt
+drwxr-xr-x 1 root  root  4096 Jun 20  2019 var
+```
+
+```
 missing:~$ curl --head --silent google.com | grep --ignore-case content-length | cut --delimiter=' ' -f2
 219
 ```
