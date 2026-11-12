@@ -161,17 +161,17 @@ drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 `mv`可以重命名文件，需要新路径和旧路径，所以可以移动文件。
 
 ```
-mv dotfiles.md foo.md
-cp dotfiles.md ../foo.md
-rm ../foo.md
+missing:~$ mv dotfiles.md foo.md
+missing:~$ cp dotfiles.md ../foo.md
+missing:~$ rm ../foo.md
 ```
 
 `rm`默认不会递归进行，所以不能删除目录，可以使用`-r`进行递归删除。
 `rmdir`可以删除目录，但只能删除空目录。
 
 ```
-mkdir "my photos"
-mkdir my\ photos
+missing:~$ mkdir "my photos"
+missing:~$ mkdir my\ photos
 ```
 
 
@@ -248,22 +248,41 @@ $ sudo echo 3 > brightness
 An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
-出乎意料的是，我们还是得到了一个错误信息。毕竟，我们已经使用了
-`sudo` 命令！关于 shell，有件事我们必须要知道。`|`、`>`、和 `<` 是通过 shell 执行的，而不是被各个程序单独执行。
+出乎意料的是，我们还是得到了一个错误信息。毕竟，我们已经使用了`sudo` 命令！关于 shell，有件事我们必须要知道。`|`、`>`、和 `<` 是通过 shell 执行的，而不是被各个程序单独执行。
 `echo` 等程序并不知道 `|` 的存在，它们只知道从自己的输入输出流中进行读写。
 回到上面更改屏幕亮度命令执行的报错，为了能让 `sudo echo` 命令输出的亮度值写入 brightness 文件， _shell_ (权限为当前用户) 会先尝试打开 brightness 文件，但此时操作 shell 的不是根（root）用户，所以系统拒绝了这个打开操作，提示无权限。
 
 明白这一点后，我们可以这样操作：
 
+``` 
+[jon@xpanse intel_backlight]$ sudo su
+[sudo] password for jon:
+[root@xpanse intel_backlight]# echo 500 > brightness
+[root@xpanse intel_backlight]# exit
+```
+
+`sudo su` 可以切换为root身份。
+`$` 表示你不是以 root 身份运行，`#` 表示是以 root 身份运行。
+可以看到用户名从 `jon` 变为 `root`。
+
+还有另一种方法：
+
 ```console
 $ echo 3 | sudo tee brightness
 ```
-此时打开 `/sys` 文件的是 `tee` 这个程序，并且该程序以 `root` 权限在运行，因此操作可以进行。
+
+此时打开 `/sys` 文件的是 `tee` 这个程序，并且该程序以 `root` 权限在运行，因此操作可以进行。`tee`会将输入内容写入一个文件同时输出到标准输出。`sudo` 只修饰它紧跟的命令。
 这样您就可以在 `/sys` 中愉快地玩耍了，例如修改系统中各种 LED 的状态（路径可能会有所不同）：
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
+
+打开文件的方法：
+```
+missing:~$ xdg-open xxx.txt
+```
+Windows是 `start`，MAac是 `open`。
 
 # 接下来.....
 
