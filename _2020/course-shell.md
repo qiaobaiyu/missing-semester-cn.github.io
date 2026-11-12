@@ -297,6 +297,16 @@ Windows是 `start`，MAac是 `open`。
 
 1. 本课程需要使用类 Unix shell，例如 Bash 或 ZSH。如果您在 Linux 或者 MacOS 上面完成本课程的练习，则不需要做任何特殊的操作。如果您使用的是 Windows，则您不应该使用 cmd 或是 Powershell；您可以使用 [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) 或者是 Linux 虚拟机。使用 `echo $SHELL` 命令可以查看您的 shell 是否满足要求。如果打印结果为 `/bin/bash` 或 `/usr/bin/zsh` 则是可以的。
 2. 在 `/tmp` 下新建一个名为 `missing` 的文件夹。
+    ```
+    white@WHITE:/$ cd /tmp
+    white@WHITE:/tmp$ mkdir missing
+    white@WHITE:/tmp$ ls
+    missing
+    snap-private-tmp
+    systemd-private-561b872dd4d947f694c635bf4743bfa8-systemd-logind.service-HaGJFM
+    systemd-private-561b872dd4d947f694c635bf4743bfa8-systemd-resolved.service-jg7VWo
+    systemd-private-561b872dd4d947f694c635bf4743bfa8-systemd-timesyncd.service-qQXlLp
+    ```
 3. 用 `man` 查看程序 `touch` 的使用手册。
 4. 用 `touch` 在 `missing` 文件夹中新建一个叫 `semester` 的文件。
 5. 将以下内容一行一行地写入 `semester` 文件：
