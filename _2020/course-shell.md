@@ -351,8 +351,37 @@ Windows是 `start`，Mac是 `open`。
 7. 查看 `chmod` 的手册(例如，使用 `man chmod` 命令)
 
 8. 使用 `chmod` 命令改变权限，使 `./semester` 能够成功执行，不要使用 `sh semester` 来执行该程序。您的 shell 是如何知晓这个文件需要使用 `sh` 来解析呢？更多信息请参考：[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))
+    ```
+    white@WHITE:/tmp/missing$ chmod +x semester
+    white@WHITE:/tmp/missing$ ls -l
+    total 4
+    -rwxr-xr-x 1 white white 61 Nov 17 21:22 semester
+    white@WHITE:/tmp/missing$ ./semester
+    HTTP/2 200
+    server: GitHub.com
+    content-type: text/html; charset=utf-8
+    last-modified: Thu, 08 Oct 2026 16:46:36 GMT
+    access-control-allow-origin: *
+    etag: "6ac7c8ec-3a22"
+    expires: Thu, 05 Nov 2026 08:20:47 GMT
+    cache-control: max-age=600
+    x-proxy-cache: REVALIDATED
+    x-github-request-id: 693A:BF4FE:1554E6:1815C6:6AEC59CE
+    x-github-edge-region: westus3
+    accept-ranges: bytes
+    age: 0
+    date: Tue, 17 Nov 2026 13:58:44 GMT
+    via: 1.1 varnish
+    x-served-by: cache-sjc1000126-SJC
+    x-cache: HIT
+    x-cache-hits: 0
+    x-timer: S1794923925.675663,VS0,VE91
+    vary: Accept-Encoding
+    x-fastly-request-id: b11303725ce05a5d083cb5ea64010e8d8a15beb6
+    content-length: 14882
+    ```
+    
+10. 使用 `|` 和 `>` ，将 `semester` 文件输出的最后更改日期信息，写入主目录下的 `last-modified.txt` 的文件中
 
-9. 使用 `|` 和 `>` ，将 `semester` 文件输出的最后更改日期信息，写入主目录下的 `last-modified.txt` 的文件中
-
-10. 写一段命令来从 `/sys` 中获取笔记本的电量信息，或者台式机 CPU 的温度。注意：macOS 并没有 sysfs，所以 Mac 用户可以跳过这一题。
+11. 写一段命令来从 `/sys` 中获取笔记本的电量信息，或者台式机 CPU 的温度。注意：macOS 并没有 sysfs，所以 Mac 用户可以跳过这一题。
 
