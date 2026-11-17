@@ -282,7 +282,7 @@ $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 missing:~$ xdg-open xxx.txt
 ```
-Windows是 `start`，MAac是 `open`。
+Windows是 `start`，Mac是 `open`。
 
 # 接下来.....
 
@@ -296,6 +296,7 @@ Windows是 `start`，MAac是 `open`。
 
 
 1. 本课程需要使用类 Unix shell，例如 Bash 或 ZSH。如果您在 Linux 或者 MacOS 上面完成本课程的练习，则不需要做任何特殊的操作。如果您使用的是 Windows，则您不应该使用 cmd 或是 Powershell；您可以使用 [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) 或者是 Linux 虚拟机。使用 `echo $SHELL` 命令可以查看您的 shell 是否满足要求。如果打印结果为 `/bin/bash` 或 `/usr/bin/zsh` 则是可以的。
+
 2. 在 `/tmp` 下新建一个名为 `missing` 的文件夹。
     ```
     white@WHITE:/$ cd /tmp
@@ -307,8 +308,17 @@ Windows是 `start`，MAac是 `open`。
     systemd-private-561b872dd4d947f694c635bf4743bfa8-systemd-resolved.service-jg7VWo
     systemd-private-561b872dd4d947f694c635bf4743bfa8-systemd-timesyncd.service-qQXlLp
     ```
+
 3. 用 `man` 查看程序 `touch` 的使用手册。
+    ```
+    man touch
+    ```
+
 4. 用 `touch` 在 `missing` 文件夹中新建一个叫 `semester` 的文件。
+    ```
+    touch semester
+    ```
+
 5. 将以下内容一行一行地写入 `semester` 文件：
     ```
     #!/bin/sh
@@ -316,8 +326,28 @@ Windows是 `start`，MAac是 `open`。
     ```
     第一行可能有点棘手， `#` 在 Bash 中表示注释，而 `!` 即使被双引号（`"`）包裹也具有特殊的含义。
     单引号（`'`）则不一样，此处利用这一点解决输入问题。更多信息请参考  [Bash quoting 手册](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
+    shell 看到 `#`，会直接把后面全部当成注释，`echo` 收不到内容。bash 扫描到 `"` 里面的 `!`，它会尝试把 `!` 后面的内容当成历史命令检索：`!` 后面跟着 `/`，bash 会去历史记录里找一条以 `/` 开头的命令，想要替换它。
+    ```
+    white@WHITE:/tmp/missing$ echo '#!/bin/sh' > semester
+    white@WHITE:/tmp/missing$ echo 'curl --head --silent https://missing.csail.mit.edu' >> semester
+    white@WHITE:/tmp/missing$ cat semester
+    #!/bin/sh
+    curl --head --silent https://missing.csail.mit.edu
+    white@WHITE:/tmp/missing$ cat < semester
+    #!/bin/sh
+    curl --head --silent https://missing.csail.mit.edu
+    ```
 
 6. 尝试执行这个文件。例如，将该脚本的路径（`./semester`）输入到您的 shell 中并回车。如果程序无法执行，请使用 `ls` 命令来获取信息并理解其不能执行的原因。
+    ``` 
+    white@WHITE:/tmp/missing$ ./semester
+    -bash: ./semester: Permission denied
+    white@WHITE:/tmp/missing$ ls -l
+    total 4
+    -rw-r--r-- 1 white white 61 Nov 17 21:22 semester
+    ```
+    没有`x`权限
+    
 7. 查看 `chmod` 的手册(例如，使用 `man chmod` 命令)
 
 8. 使用 `chmod` 命令改变权限，使 `./semester` 能够成功执行，不要使用 `sh semester` 来执行该程序。您的 shell 是如何知晓这个文件需要使用 `sh` 来解析呢？更多信息请参考：[shebang](https://en.wikipedia.org/wiki/Shebang_(Unix))
