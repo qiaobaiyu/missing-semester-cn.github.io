@@ -386,6 +386,16 @@ Windows是 `start`，Mac是 `open`。
     ```
     
 9. 使用 `|` 和 `>` ，将 `semester` 文件输出的最后更改日期信息，写入主目录下的 `last-modified.txt` 的文件中
-
+    ```
+    white@WHITE:/tmp/missing$ ./semester | grep last-modified > ~/last-modified.txt
+    white@WHITE:/tmp/missing$ cd -
+    /home/white
+    white@WHITE:~$ cat last-modified.txt
+    last-modified: Thu, 08 Oct 2026 16:46:36 GMT
+    ```
+    
 10. 写一段命令来从 `/sys` 中获取笔记本的电量信息，或者台式机 CPU 的温度。注意：macOS 并没有 sysfs，所以 Mac 用户可以跳过这一题。
-
+    ```
+    white@WHITE:~$ cat /sys/class/power_supply/BAT1/capacity
+    80
+    ```
