@@ -380,8 +380,12 @@ Windows是 `start`，Mac是 `open`。
     x-fastly-request-id: b11303725ce05a5d083cb5ea64010e8d8a15beb6
     content-length: 14882
     ```
+    或者
+    ```
+     white@WHITE:/tmp/missing$ chmod 777 semester
+    ```
     
-10. 使用 `|` 和 `>` ，将 `semester` 文件输出的最后更改日期信息，写入主目录下的 `last-modified.txt` 的文件中
+9. 使用 `|` 和 `>` ，将 `semester` 文件输出的最后更改日期信息，写入主目录下的 `last-modified.txt` 的文件中
 
-11. 写一段命令来从 `/sys` 中获取笔记本的电量信息，或者台式机 CPU 的温度。注意：macOS 并没有 sysfs，所以 Mac 用户可以跳过这一题。
+10. 写一段命令来从 `/sys` 中获取笔记本的电量信息，或者台式机 CPU 的温度。注意：macOS 并没有 sysfs，所以 Mac 用户可以跳过这一题。
 
